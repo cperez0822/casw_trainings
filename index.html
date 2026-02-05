@@ -256,40 +256,43 @@
 
   <!-- SCRIPT -->
   <script>
-    const SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbzlY90jqm_uaebGqrAKa-j_CMfmGnE3oL8cwOuD_PRbliH62Pydgl07zuYfpxIq3TdO/exec";
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbzlY90jqm_uaebGqrAKa-j_CMfmGnE3oL8cwOuD_PRbliH62Pydgl07zuYfpxIq3TdO/exec";
 
-    const form = document.getElementById("inscripcionForm");
-    const msg = document.getElementById("msg");
-    const btn = document.getElementById("btnEnviar");
+  const form = document.getElementById("inscripcionForm");
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("btnEnviar");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      msg.textContent = "Enviando...";
-      btn.disabled = true;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "Enviando...";
+    btn.disabled = true;
 
-      const body = new URLSearchParams({
-        area: document.getElementById("area").value.trim(),
-        nombre: document.getElementById("nombre").value.trim(),
-        curso: document.getElementById("curso").value
+    const body = new URLSearchParams({
+      area: document.getElementById("area").value.trim(),
+      nombre: document.getElementById("nombre").value.trim(),
+      curso: document.getElementById("curso").value
+    });
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: body
       });
 
-      try {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body
-        });
+      msg.textContent = "✅ Inscripción enviada correctamente.";
+      form.reset();
+    } catch (err) {
+      msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
 
-        msg.textContent = "✅ Inscripción enviada correctamente.";
-        form.reset();
-      } catch (err) {
-        msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
-      } finally {
-        btn.disabled = false;
-      }
-    });
-  </script>
 
 </body>
 </html>
