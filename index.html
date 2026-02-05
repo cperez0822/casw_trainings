@@ -256,43 +256,47 @@
 
   <!-- SCRIPT -->
   <script>
-  const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzlY90jqm_uaebGqrAKa-j_CMfmGnE3oL8cwOuD_PRbliH62Pydgl07zuYfpxIq3TdO/exec";
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzlY90jqm_uaebGqrAKa-j_CMfmGnE3oL8cwOuD_PRbliH62Pydgl07zuYfpxIq3TdO/exec";
 
-  const form = document.getElementById("inscripcionForm");
-  const msg = document.getElementById("msg");
-  const btn = document.getElementById("btnEnviar");
+const form = document.getElementById("inscripcionForm");
+const msg = document.getElementById("msg");
+const btn = document.getElementById("btnEnviar");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    msg.textContent = "Enviando...";
-    btn.disabled = true;
+  msg.textContent = "Enviando...";
+  btn.disabled = true;
 
-    const body = new URLSearchParams({
-      area: document.getElementById("area").value.trim(),
-      nombre: document.getElementById("nombre").value.trim(),
-      curso: document.getElementById("curso").value
+  const body = new URLSearchParams({
+    area: document.getElementById("area").value.trim(),
+    nombre: document.getElementById("nombre").value.trim(),
+    curso: document.getElementById("curso").value
+  });
+
+  console.log(body.toString()); // Verifica que los datos estén correctos
+
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "cors", // Cambiado aquí
+      body: body
     });
 
-    try {
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: body
-      });
-
-      // ⚠️ Aunque fetch no pueda validar respuesta,
-      // el POST YA se ejecutó en Apps Script
+    if (response.ok) {
       msg.textContent = "✅ Inscripción enviada correctamente.";
       form.reset();
-
-    } catch (err) {
-      msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
-    } finally {
-      btn.disabled = false;
+    } else {
+      throw new Error('Error en la respuesta del servidor');
     }
-  });
+
+  } catch (err) {
+    msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
+  } finally {
+    btn.disabled = false;
+  }
+});
 </script>
 
 
