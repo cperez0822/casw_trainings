@@ -6,6 +6,13 @@
     <title>Portal de Inscripción</title>
 
     <style>
+      :root {
+        --blue: #003A8F;      /* Azul bandera */
+        --blue-light: #E6EEF9;
+        --text: #1f2937;
+        --bg: #f5f7fb;
+      }
+
       * {
         box-sizing: border-box;
       }
@@ -13,16 +20,16 @@
       body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
-        background-color: #f5f5f5;
-        color: #222;
+        background-color: var(--bg);
+        color: var(--text);
       }
 
       /* ====== COVER ====== */
       .cover {
         height: 65vh;
         background-image:
-          linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-          url("cover_page.jpg"); /* IMAGEN EN RAÍZ */
+          linear-gradient(rgba(0, 58, 143, 0.65), rgba(0, 58, 143, 0.65)),
+          url("cover_page.jpg");
         background-size: cover;
         background-position: center;
         display: flex;
@@ -41,19 +48,20 @@
         text-transform: uppercase;
       }
 
-      /* ====== CONTENIDO ====== */
+      /* ====== CONTENEDOR PRINCIPAL ====== */
       .content {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: -60px auto 40px;
         background: #ffffff;
         padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
       }
 
       .content h2 {
         margin-top: 0;
-        font-size: 24px;
+        font-size: 26px;
+        color: var(--blue);
       }
 
       .content p {
@@ -61,16 +69,63 @@
         line-height: 1.6;
       }
 
+      /* ====== SECCIONES BELT ====== */
+      .belts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-top: 30px;
+      }
+
+      .belt-card {
+        border-radius: 12px;
+        padding: 25px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+      }
+
+      .belt-card h3 {
+        margin-top: 0;
+        font-size: 22px;
+        margin-bottom: 12px;
+        color: var(--blue);
+      }
+
+      .belt-card ul {
+        padding-left: 18px;
+        margin: 0;
+      }
+
+      .belt-card li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+
+      .belt-card strong {
+        color: var(--blue);
+      }
+
+      .belt-card.yellow,
+      .belt-card.green {
+        border-left: 6px solid var(--blue);
+        background: var(--blue-light);
+      }
+
       /* ====== FOOTER ====== */
       footer {
         text-align: center;
         padding: 20px;
         font-size: 13px;
-        color: #666;
+        color: #ffffff;
+        background-color: var(--blue);
       }
 
       /* ====== RESPONSIVE ====== */
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
+        .belts {
+          grid-template-columns: 1fr;
+        }
+
         .cover h1 {
           font-size: 24px;
         }
@@ -91,22 +146,39 @@
       </h1>
     </section>
 
-    <!-- INFORMACIÓN -->
+    <!-- CONTENIDO -->
     <section class="content">
-      <h2>Información</h2>
+      <h2>Programas de Entrenamiento</h2>
       <p>
-        Aquí puedes colocar la información del programa, fechas, requisitos,
-        niveles de certificación y enlaces de inscripción.
+        CASW pone a disposición los siguientes programas de capacitación en Lean
+        y Six Sigma, orientados a fortalecer la cultura de mejora continua.
       </p>
 
-      <p>
-        Este portal está diseñado para uso interno y centralizar el registro a
-        los entrenamientos de Lean y Six Sigma de CASW.
-      </p>
+      <div class="belts">
+        <!-- YELLOW BELT -->
+        <div class="belt-card yellow">
+          <h3>Yellow Belt</h3>
+          <ul>
+            <li><strong>Objetivo principal:</strong> brindar conocimientos básicos sobre cultura y herramientas de mejora continua.</li>
+            <li><strong>Perfil:</strong> supervisores, líderes y personal en general.</li>
+            <li><strong>Duración:</strong> 1 semana (16 horas), 2 veces en el año.</li>
+          </ul>
+        </div>
+
+        <!-- GREEN BELT -->
+        <div class="belt-card green">
+          <h3>Green Belt</h3>
+          <ul>
+            <li><strong>Objetivo principal:</strong> desarrollar habilidades para el desarrollo de cultura e implementación de proyectos con metodología Six Sigma.</li>
+            <li><strong>Perfil:</strong> ingenieros, jefes y líderes cuya expectativa es implementar cultura de mejora y desarrollar proyectos en sus áreas.</li>
+            <li><strong>Duración:</strong> 4 meses (64 horas), 1 vez al año.</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <footer>
-      © CASW · Portal interno de training
+      © CASW · Portal interno de training Lean & Six Sigma
     </footer>
   </body>
 </html>
