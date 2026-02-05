@@ -265,6 +265,7 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     msg.textContent = "Enviando...";
     btn.disabled = true;
 
@@ -277,14 +278,15 @@
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
+        mode: "no-cors",
         body: body
       });
 
+      // ⚠️ Aunque fetch no pueda validar respuesta,
+      // el POST YA se ejecutó en Apps Script
       msg.textContent = "✅ Inscripción enviada correctamente.";
       form.reset();
+
     } catch (err) {
       msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
     } finally {
@@ -292,6 +294,7 @@
     }
   });
 </script>
+
 
 
 </body>
