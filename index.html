@@ -261,14 +261,11 @@
     const body = new URLSearchParams({ area, nombre, curso });
 
     try {
-      const res = await fetch(SCRIPT_URL, {
+      await fetch(SCRIPT_URL, {
         method: "POST",
-        body: body
+        body
       });
-
-      if (!res.ok) throw new Error("Respuesta no OK");
-
-      msg.textContent = "✅ Inscripción enviada correctamente.";
+      msg.textContent = "✅ Inscripción enviada (verifica en la hoja).";
       form.reset();
     } catch (err) {
       msg.textContent = "❌ No se pudo enviar. Verifica y vuelve a intentar.";
@@ -277,6 +274,7 @@
     }
   });
 </script>
+
 
   </body>
 </html>
